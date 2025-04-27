@@ -67,11 +67,11 @@ public class Graph<E> {
             int currentVertex = vertexQueue.poll();
             int[] neighbors = neighbors(currentVertex);
 
-            for (int i = 0; i < neighbors.length; i++) {
-                if (!visited[i]) {
-                    visited[i] = true;
-                    traversalOrder.add(labels[i]);
-                    vertexQueue.add(neighbors[i]);
+            for (int neighbor : neighbors) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    traversalOrder.add(labels[neighbor]);
+                    vertexQueue.add(neighbor);
                 }
             }
         }
