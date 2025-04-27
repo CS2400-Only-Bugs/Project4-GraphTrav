@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Graph<E> { 
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j
     private E[] labels; // labels[i] contains the label for vertex i
@@ -49,5 +52,30 @@ public class Graph<E> {
 
     public int size() {
         return labels.length;
+    }
+    
+    public Queue<E> getBreadthFirstTraversal(int originVertex) {
+        boolean[] visited = new boolean[size()];
+        Queue<E> traversalOrder = new LinkedList<>();
+        Queue<Integer> vertexQueue = new LinkedList<>();
+
+        visited[originVertex] = true;
+        traversalOrder.add(labels[originVertex]);
+        vertexQueue.add(originVertex);
+
+        while (!vertexQueue.isEmpty()) {
+            int currentVertex = vertexQueue.poll();
+            int[] neighbors = neighbors(currentVertex);
+
+            for (int i = 0; i < neighbors.length; i++) {
+                if (!visited[i]) {
+                    visited[i] = true;
+                    traversalOrder.add(labels[i]);
+                    vertexQueue.add(neighbors[i]);
+                }
+            }
+        }
+
+        return traversalOrder;
     }
 }
