@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Graph<E> { 
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j
@@ -73,6 +74,42 @@ public class Graph<E> {
                     traversalOrder.add(labels[neighbor]);
                     vertexQueue.add(neighbor);
                 }
+            }
+        }
+
+        return traversalOrder;
+    }
+
+    public Queue<E> getDepthFirstTraversal(int originVertex){
+        boolean[] visited = new boolean[size()];
+        Queue<E> traversalOrder = new LinkedList<>();
+        Stack<Integer> vertexStack = new Stack<>();
+
+        visited[originVertex] = true;
+        traversalOrder.add(labels[originVertex]);
+        vertexStack.push(originVertex);
+
+        while(!vertexStack.isEmpty()){
+            Integer topVertex = vertexStack.peek();
+            int[] neighbors = neighbors(topVertex);
+
+            boolean foundUnvisitedNeighbor = false;
+            int index = 0;
+            while(!foundUnvisitedNeighbor && index < neighbors.length){
+                int neighbor = neighbors[index];
+                if(!visited[neighbor]){
+                    visited[neighbor] = true;
+                    traversalOrder.add(labels[neighbor]);
+                    vertexStack.push(neighbor);
+                    foundUnvisitedNeighbor = true;
+                }
+                else{
+                    index++;
+                }
+            }
+
+            if(!foundUnvisitedNeighbor){
+                vertexStack.pop();
             }
         }
 

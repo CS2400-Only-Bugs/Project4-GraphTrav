@@ -33,11 +33,19 @@ public class Main {
         graph.addEdge(8, 5);    // (I,F)
     
 
-        Queue<Character> traversalOrder = new LinkedList<>();
-        traversalOrder = graph.getBreadthFirstTraversal(4);
+        Queue<Character> traversalOrderBreadth = new LinkedList<>();
+        traversalOrderBreadth = graph.getBreadthFirstTraversal(4);
+        System.out.println("Breadth-First Traversal:");
+        while (!traversalOrderBreadth.isEmpty()) {
+            System.out.print(traversalOrderBreadth.poll());
+        }
+        System.out.println("");
 
-        while (!traversalOrder.isEmpty()) {
-            System.out.println(traversalOrder.poll());
+        Queue<Character> traversalOrderDepth = new LinkedList<>();
+        System.out.println("Depth-First Traversal:");
+        traversalOrderDepth = graph.getDepthFirstTraversal(4);
+        while (!traversalOrderDepth.isEmpty()) {
+            System.out.print(traversalOrderDepth.poll());
         }
     }
 }
